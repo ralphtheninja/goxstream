@@ -6,7 +6,7 @@
     "stream",
     "bitcoin"
   ],
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Lars-Magnus Skog <lars.magnus.skog@gmail.com>",
   "repository": {
     "url": "git://github.com/ralphtheninja/goxstream.git"
@@ -16,13 +16,14 @@
     "test": "tap --stderr ./test/*.js"
   },
   "dependencies": {
-    "ws": "git://github.com/ralphtheninja/ws.git"
+    "ws": "git://github.com/ralphtheninja/ws.git",
+    "readable-stream": "~1.0.2"
   },
   "devDependencies": {
     "tap": "~0.4.0"
   },
-  "engines" : {
-    "node" : ">=0.8"
+  "engines": {
+    "node": ">=0.8"
   },
   "license": "MIT"
 }
