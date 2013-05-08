@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var Readable  = require('stream').Readable
+var Readable  = require('./readable')
 var Websocket = require('ws')
 var inherits  = require('util').inherits
 
