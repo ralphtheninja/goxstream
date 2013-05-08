@@ -1,0 +1,25 @@
+{
+  "name": "goxstream",
+  "description": "A node.js readable stream for mtgox. Uses raw websocket!",
+  "keywords": [
+    "mtgox",
+    "stream",
+    "bitcoin"
+  ],
+  "version": "0.0.0",
+  "author": "Lars-Magnus Skog <lars.magnus.skog@gmail.com>",
+  "repository": {
+    "url": "git://github.com/ralphtheninja/goxstream.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "tap --stderr ./test/*.js"
+  },
+  "dependencies": {
+    "ws": "~0.4.25"
+  },
+  "devDependencies": {
+    "tap": "~0.4.0"
+  },
+  "license": "MIT"
+}
