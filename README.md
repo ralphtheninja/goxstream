@@ -36,6 +36,12 @@ var options = { currency: 'EUR', ticker: false, depth: true }
 gox.createStream(options).pipe(fs.createWriteStream('./EUR'))
 ```
 
+## Install
+
+```bash
+npm install goxstream
+```
+
 ## JSON Format
 
 Here's a brief summary on the different json blobs.
