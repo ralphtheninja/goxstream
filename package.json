@@ -17,7 +17,8 @@
   },
   "dependencies": {
     "ws": "git://github.com/ralphtheninja/ws.git",
-    "readable-stream": "~1.0.2"
+    "readable-stream": "1.0.2",
+    "xtend": "2.0.3"
   },
   "devDependencies": {
     "tap": "~0.4.0"
