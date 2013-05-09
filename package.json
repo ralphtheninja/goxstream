@@ -6,7 +6,7 @@
     "stream",
     "bitcoin"
   ],
-  "version": "0.0.4",
+  "version": "0.1.0",
   "author": "Lars-Magnus Skog <lars.magnus.skog@gmail.com>",
   "repository": {
     "url": "git://github.com/ralphtheninja/goxstream.git"
