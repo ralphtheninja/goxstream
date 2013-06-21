@@ -1,5 +1,7 @@
 # goxstream
 
+[![Dependency Status](https://david-dm.org/ralphtheninja/goxstream.png)](https://david-dm.org/ralphtheninja/goxstream)
+
 A node.js readable stream for mtgox, based on [ws](https://github.com/einaros/ws). Reports ticker, depth, trade and lag data in real time. Supports the [bitcoin](http://bitcoin.org) (BTC) channels from this [list](https://mtgox.com/api/2/stream/list_public). [Namecoin](http://namecoin.info) (NMC) and [litecoin](http://litecoin.org) (LTC) are currently not traded on MtGox but might be in a near future.
 
 ## API
