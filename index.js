@@ -29,6 +29,9 @@ function MtGoxStream(options) {
 
   var self = this
   var ws = null
+  
+  var last_updated = null
+  var check_interval = null
 
   this._read = function () {
     if (ws) return
@@ -45,8 +48,21 @@ function MtGoxStream(options) {
     })
 
     ws.on('message', function(data) {
-      if (isValid(data)) output(data)
+      if (isValid(data)) {
+          output(data)
+          last_updated = Date.now()
+      }
     })
+    
+    check_interval = setInterval(function() {
+        if (last_updated == null || (Date.now() - last_updated) >= 30000) {
+            if (check_interval) {
+                clearInterval(check_interval)
+                check_interval = null
+            }
+            self.restart()
+        }
+    }, 30000)
   }
 
   function isValid(data) {
@@ -73,9 +89,11 @@ function MtGoxStream(options) {
     ws.send(JSON.stringify({ op: 'mtgox.subscribe', channel: channel }))
   }
   
-  function close() {
-      console.log('closing connection to MtGox...');
-      ws.close();
+  function restart() {
+      console.log('restarting connection to MtGox...')
+      ws.close()
+      ws = null
+      self._read();
   }
 }
 
