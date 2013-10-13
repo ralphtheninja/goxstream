@@ -53,6 +53,9 @@ function MtGoxStream(options) {
           last_updated = Date.now()
       }
     })
+
+    ws.on('error', function(err) {
+    })
     
     check_interval = setInterval(function() {
         if (last_updated == null || (Date.now() - last_updated) >= 30000) {
@@ -89,7 +92,7 @@ function MtGoxStream(options) {
     ws.send(JSON.stringify({ op: 'mtgox.subscribe', channel: channel }))
   }
   
-  function restart() {
+  this.restart = function() {
       console.log('restarting connection to MtGox...')
       ws.close()
       ws = null
