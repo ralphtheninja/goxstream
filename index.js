@@ -66,12 +66,16 @@ function MtGoxStream(options) {
 
   function output(data) {
     self.push(data)
-    self.push('\n')
   }
 
   function subscribe(channel) {
     console.log('subscribing to channel:', channel)
     ws.send(JSON.stringify({ op: 'mtgox.subscribe', channel: channel }))
+  }
+  
+  function close() {
+      console.log('closing connection to MtGox...');
+      ws.close();
   }
 }
 
