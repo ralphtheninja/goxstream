@@ -6,15 +6,16 @@ A node.js readable stream for mtgox, based on [ws](https://github.com/einaros/ws
 
 ## API
 
-### goxstream.createStream([options])
+### goxstream.createStream([opts])
 
-Creates and returns a readable <i>object</i> stream. The options argument configures what type of data you are interested in and uses the following properties:
+Creates and returns a readable <i>object</i> stream. The options argument configures what type of data you are interested and have the following properties:
 
 * <b>currency</b> `(string)` E.g `'USD'`, `'EUR'` etc. Default is `'USD'`.
 * <b>ticker</b> `(Boolean)` Stream ticker data. Default is `true`.
 * <b>depth</b> `(Boolean)` Stream depth data, i.e. buys and sells on the market. Default is `false`.
 * <b>trade</b> `(Boolean)` Stream trade data, i.e. actual transactions between buyers and sellers. Default is `false`.
 * <b>lag</b> `(Boolean)` Stream lag data. Default is `false`.
+* <b>restart_interval</b> `(Number)` Time interval in ms. Restart stream after no new data delay. Default is `30000`.
 
 ### goxstream.currencies()
 

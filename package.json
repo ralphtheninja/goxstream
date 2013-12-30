@@ -6,8 +6,8 @@
     "stream",
     "bitcoin"
   ],
-  "version": "0.1.0",
-  "author": "Lars-Magnus Skog <ralphtheninja@riseup.net>",
+  "version": "0.1.1",
+  "author": "lms <ralphtheninja@riseup.net>",
   "repository": {
     "url": "git://github.com/ralphtheninja/goxstream.git"
   },
