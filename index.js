@@ -16,20 +16,21 @@ var defaultOptions = {
       , depth: false
       , trade: false
       , lag: false
+      , restart_interval: 30000
     }
 
-function createStream(options) {
-  return new MtGoxStream(options)
+function createStream(opts) {
+  return new MtGoxStream(opts)
 }
 
-function MtGoxStream(options) {
-  options = xtend(defaultOptions, options)
+function MtGoxStream(opts) {
+  opts = xtend(defaultOptions, opts)
 
   Readable.call(this, { objectMode: true })
 
   var self = this
   var ws = null
-  
+
   var last_updated = null
   var check_interval = null
 
@@ -39,33 +40,32 @@ function MtGoxStream(options) {
     var url = 'wss://websocket.mtgox.com'
     ws = new Websocket(url)
 
-    ws.on('open', function() {
+    ws.on('open', function () {
       console.log('connected to:', url)
-      if (options.ticker) subscribe('ticker.BTC' + options.currency)
-      if (options.depth) subscribe('depth.BTC' + options.currency)
-      if (options.trade) subscribe('trade.BTC')
-      if (options.lag) subscribe('trade.lag')
+      if (opts.ticker) subscribe('ticker.BTC' + opts.currency)
+      if (opts.depth) subscribe('depth.BTC' + opts.currency)
+      if (opts.trade) subscribe('trade.BTC')
+      if (opts.lag) subscribe('trade.lag')
     })
 
-    ws.on('message', function(data) {
+    ws.on('message', function (data) {
       if (isValid(data)) {
-          output(data)
-          last_updated = Date.now()
+        output(data)
+        last_updated = Date.now()
       }
     })
 
-    ws.on('error', function(err) {
-    })
-    
-    check_interval = setInterval(function() {
-        if (last_updated == null || (Date.now() - last_updated) >= 30000) {
-            if (check_interval) {
-                clearInterval(check_interval)
-                check_interval = null
-            }
-            self.restart()
+    ws.on('error', function (err) {})
+
+    check_interval = setInterval(function () {
+      if (last_updated == null || (Date.now() - last_updated) >= opts.restart_interval) {
+        if (check_interval) {
+          clearInterval(check_interval)
+          check_interval = null
         }
-    }, 30000)
+        self.restart()
+      }
+    }, opts.restart_interval)
   }
 
   function isValid(data) {
@@ -75,7 +75,7 @@ function MtGoxStream(options) {
         if ('trade.BTC' !== obj.channel_name) {
           return true
         }
-        return obj.trade.price_currency === options.currency
+        return obj.trade.price_currency === opts.currency
       }
     } catch (err) {
       console.log('invalid json data', data)
@@ -91,12 +91,12 @@ function MtGoxStream(options) {
     console.log('subscribing to channel:', channel)
     ws.send(JSON.stringify({ op: 'mtgox.subscribe', channel: channel }))
   }
-  
-  this.restart = function() {
-      console.log('restarting connection to MtGox...')
-      ws.close()
-      ws = null
-      self._read();
+
+  this.restart = function () {
+    console.log('restarting connection to MtGox...')
+    ws.close()
+    ws = null
+    self._read()
   }
 }
 
